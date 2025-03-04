@@ -88,7 +88,7 @@ function wrongAns() {
 // Check User Input
 function checkAnswer(currentIndex) {
     if (userSequence[currentIndex] !== gameSequence[currentIndex]) { 
-        levelText.innerHTML = `Game Over!<br> Your Score : <b> **${level}**<b> <br> Press any key to START again`;
+        levelText.innerHTML = `Game Over!<br> <br> Your Score : <b> **${level}**<b> <br> <br> Take a breath, GAME will restart in 4 Sec`;
         wrongAns();
         setTimeout(function () {
             modal.style.display = "block";  // Show modal again
