@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Says Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+
+    <!-- Instruction Modal -->
+    <div id="instruction-modal" class="modal">
+        <div class="popup-content">
+            <h2>Level 1</h2>
+            <p>1. Click on the "Start Game" button to begin.</p>
+            <p>2. Watch the sequence carefully.</p>
+            <p>3. Repeat the sequence by clicking the buttons in order.</p>
+            <p>4. The game gets harder with each level!</p>
+            <button id="start-game">Start Game</button>
+        </div>
+    </div>
+
     <header>
         <h1>Simon Says</h1>
     </header>
+    
     <main>
-        <h2>Press any key to start the game</h2>
+        <h2 id="game-message">Level: <span id="level">1</span></h2>
+        
         <div class="btn-container">
-            <div class="btn yellow" id="yellow" type="button"></div>
-            <div class="btn red" id="red" type="button"></div>
-            <div class="btn green" id="green" type="button"></div>
-            <div class="btn purple" id="purple" type="button"></div>
+            <div class="btn yellow" id="yellow"></div>
+            <div class="btn red" id="red"></div>
+            <div class="btn green" id="green"></div>
+            <div class="btn purple" id="purple"></div>
         </div>
-        <script src="app.js"></script>
     </main>
-</body>
 
+    <script src="app.js"></script>
+</body>
 </html>
