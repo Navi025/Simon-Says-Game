@@ -1,13 +1,17 @@
 let gameSequence = [];
 let userSequence = [];
 let level = 0;
+let highScore = localStorage.getItem("highScore")? parseInt(localStorage.getItem("highScore")) : 0; 
 const colors = ["yellow", "red", "green", "purple"];
 const startButton = document.getElementById("start-game");
 const modal = document.getElementById("instruction-modal");
-const levelText = document.getElementById("level");
+let levelText = document.getElementById("level");
+let highScoreText = document.getElementById("high-score");
+
+highScoreText.innerText = `Highest Score: ${highScore}`;
 
 // Hide Modal & Start Game
-startButton.addEventListener("click", function() {
+startButton.addEventListener("click", function () {
     modal.style.display = "none"; // Hide instruction popup
     startGame();
 });
@@ -25,33 +29,44 @@ function nextLevel() {
     userSequence = [];
     levelText.innerText = level;
 
+    highScoreText.innerText = `Highest Score: ${highScore}`; 
     let randomColor = colors[Math.floor(Math.random() * colors.length)];
     gameSequence.push(randomColor);
-
-    flashSequence();
+    flashNewColor(); 
+    // flashSequence();
 }
 
 // Flashing Sequence Function
-function flashSequence() {
-    let i = 0;
-    const interval = setInterval(() => {
-        let btn = document.getElementById(gameSequence[i]);
-        btn.classList.add("flash");
+// function flashSequence() {
+//     let i = 0;
+//     const interval = setInterval(() => {
+//         let btn = document.getElementById(gameSequence[i]);
+//         btn.classList.add("flash");
 
-        setTimeout(() => {
-            btn.classList.remove("flash");
-        }, 110);
+//         setTimeout(() => {
+//             btn.classList.remove("flash");
+//         }, 500);
 
-        i++;
-        if (i >= gameSequence.length) {
-            clearInterval(interval);
-        }
-    }, 150);
+//         i++;
+//         if (i >= gameSequence.length) {
+//             clearInterval(interval);
+//         }
+//     }, 550);
+// }
+function flashNewColor() {
+    let newColor = gameSequence[gameSequence.length - 1];
+    let btn = document.getElementById(newColor);
+    btn.classList.add("flash");
+
+    setTimeout(() => {
+        btn.classList.remove("flash");
+    }, 200);
 }
+
 
 // Button Click Event
 document.querySelectorAll(".btn").forEach(btn => {
-    btn.addEventListener("click", function() {
+    btn.addEventListener("click", function () {
         let clickedColor = this.id;
         userSequence.push(clickedColor);
         userFlashButton(clickedColor);
@@ -87,13 +102,18 @@ function wrongAns() {
 
 // Check User Input
 function checkAnswer(currentIndex) {
-    if (userSequence[currentIndex] !== gameSequence[currentIndex]) { 
-        levelText.innerHTML = `Game Over!<br> <br> Your Score : <b> **${level}**<b> <br> <br> Take a breath, GAME will restart in 4 Sec`;
+    if (userSequence[currentIndex] !== gameSequence[currentIndex]) {
+        if (level > highScore) {
+            highScore = level;
+            localStorage.setItem("highScore", highScore); // Store new high score
+        }
+        levelText.innerHTML = `Game Over!<br> <br> Your Score : <b> **${level}**</b> <br> Highest Score: <b>${highScore}</b><br> <br> Take a breath, GAME will restart in 4 Sec`;
         wrongAns();
-        setTimeout(function () {
-            modal.style.display = "block";  // Show modal again
-            levelText.innerText = "1";
-        }, 4000);
+        reset();
+        // setTimeout(function () {
+        //     modal.style.display = "block";  // Show modal again
+        //     levelText.innerText = "1";
+        // }, 4000);
         return;
     }
 
@@ -104,3 +124,12 @@ function checkAnswer(currentIndex) {
         }, 800);
     }
 }
+
+function reset() {
+    gameSequence = [];
+    userSequence = [];
+    level = 0;
+    setTimeout(function () {
+        modal.style.display = "block";  // Show modal again
+    }, 4000);
+};
