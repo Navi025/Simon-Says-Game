@@ -40,8 +40,6 @@ Got ideas for improvements? Contributions are welcome! Feel free to fork the rep
 
 ## 📜 License  
 This project is licensed under the MIT License - you are free to use, modify, and distribute it with attribution.
-
-📄 View the full license here.
-
 Let me know if you need any other modifications! 🚀
+
 **© 2022 Navnitya Vinayak**. All rights reserved.  
