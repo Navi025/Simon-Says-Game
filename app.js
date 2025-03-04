@@ -21,7 +21,9 @@ function startGame() {
     level = 1;
     gameSequence = [];
     userSequence = [];
-    nextLevel();
+    setTimeout(() => {
+        nextLevel();  // Delay only before first level starts
+    }, 150);
 }
 
 // Next Level Function
